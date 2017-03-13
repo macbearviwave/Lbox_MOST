@@ -3,6 +3,7 @@
 */
 #include <stdio.h>
 #include <string.h>
+#define uint8_t unsigned char
 
 extern void printBinary(const unsigned char *data, const int szData);
 extern uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length);
