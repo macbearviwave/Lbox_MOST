@@ -9,9 +9,10 @@ unsigned char LM130_RCmd[] = {0xFF, 0x4C, 0xCF, 0x52, 0xA1, 0x52, 0xF0};
 unsigned char LM130_WCmd[] = {0xFF, 0x4C, 0xCF, 0x52, 0xA1, 0x57, 0xF1};
 unsigned long LM130_Wait = 600;
 unsigned char g_buf[99];
-int g_szBuf;
 
 DataLora g_dataLora;
+
+///////////////////////////////////////////
 
 void printBinary(const unsigned char *data, const int szData)
 {
@@ -24,6 +25,19 @@ void printBinary(const unsigned char *data, const int szData)
     }
     printf("%s (%d)\n", strOut, szData);
 }
+
+///////////////////////////////////////////
+
+uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length) {
+    uint8_t crc = 0;
+    for (uint8_t i=0; i<length; i++) {
+        crc^=dataBuffer[i];
+    }
+    //printf("%x\n", crc);
+    return crc;
+}
+
+///////////////////////////////////////////
 
 int receData(unsigned char *buf, const int interval)
 {	

@@ -1,0 +1,80 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		80CE5C181E76712500097F65 /* lbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lbox.h; path = ../lbox.h; sourceTree = "<group>"; };
+		80CE5C191E76712500097F65 /* lora_packet.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = lora_packet.c; path = ../lora_packet.c; sourceTree = "<group>"; };
+		80CE5C1A1E76712500097F65 /* lora_packet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lora_packet.h; path = ../lora_packet.h; sourceTree = "<group>"; };
+		80CE5C1B1E76712500097F65 /* lora_util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = lora_util.c; path = ../lora_util.c; sourceTree = "<group>"; };
+		80CE5C1C1E76712500097F65 /* lora_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lora_util.h; path = ../lora_util.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		80CE5C111E7670FD00097F65 = {
+			isa = PBXGroup;
+			children = (
+				80CE5C181E76712500097F65 /* lbox.h */,
+				80CE5C191E76712500097F65 /* lora_packet.c */,
+				80CE5C1A1E76712500097F65 /* lora_packet.h */,
+				80CE5C1B1E76712500097F65 /* lora_util.c */,
+				80CE5C1C1E76712500097F65 /* lora_util.h */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		80CE5C121E7670FD00097F65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+			};
+			buildConfigurationList = 80CE5C151E7670FD00097F65 /* Build configuration list for PBXProject "libLbox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 80CE5C111E7670FD00097F65;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		80CE5C161E7670FD00097F65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		80CE5C171E7670FD00097F65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		80CE5C151E7670FD00097F65 /* Build configuration list for PBXProject "libLbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80CE5C161E7670FD00097F65 /* Debug */,
+				80CE5C171E7670FD00097F65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 80CE5C121E7670FD00097F65 /* Project object */;
+}

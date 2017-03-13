@@ -5,6 +5,7 @@
 #include <string.h>
 
 extern void printBinary(const unsigned char *data, const int szData);
+extern uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length);
 
 // config data for lora (30 bytes)
 typedef struct SDataLora {
