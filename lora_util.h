@@ -27,6 +27,8 @@ typedef struct SDataLora {
 
 } DataLora;
 
+extern DataLora g_dataLora;
+
 // config LoRa
 extern int readConfig(DataLora *data);
 extern int writeConfig(long freq, unsigned char group_id, char data_rate, char power, char wakeup_time);
@@ -35,3 +37,8 @@ extern int writeConfig(long freq, unsigned char group_id, char data_rate, char p
 extern int receData(unsigned char *buf, const int interval);
 
 extern void initLora();
+extern void showSensorOnboard();
+
+// blink LED for debug
+extern void blinkLed(int nCount, int msOn, int msOff, int idPin);
+extern void blinkSOS(int msDot);

@@ -144,3 +144,34 @@ void initLora()
     readConfig(&g_dataLora);
 }
 
+
+void showSensorOnboard()
+{
+    int temp = THS_Read_Value(0);
+    int humidity = THS_Read_Value(1);
+    int light = LS_Read_Value();
+    printf("Temp(%d), Humidity(%d), light(%d)\n", temp, humidity, light);  
+}
+
+///////////////////////////////////////////
+void blinkLed(int nCount, int msOn, int msOff, int idPin)
+{
+    SetGPIO(idPin, 1);  // Set to GPO
+	WriteGPO(idPin, 0);
+    int i;
+    for (i = 0; i < nCount; i++) {
+        WriteGPO(idPin, 0);     // turn-on
+        Delay_Tick(msOn);
+        WriteGPO(idPin, 1);     // turn-off
+        Delay_Tick(msOff);
+    }
+}
+
+void blinkSOS(int msDot)
+{
+    blinkLed(3, msDot, msDot, 1);
+    Delay_Tick(msDot * 2);
+    blinkLed(3, msDot * 3, msDot, 1);
+    Delay_Tick(msDot * 2);
+    blinkLed(3, msDot, msDot, 1);
+}
