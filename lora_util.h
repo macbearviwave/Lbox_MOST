@@ -3,7 +3,9 @@
 */
 #include <stdio.h>
 #include <string.h>
+
 #define uint8_t unsigned char
+#define USE_DEBUG_OUTPUT    1       // output Terminal I/O
 
 extern void printBinary(const unsigned char *data, const int szData);
 extern uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length);
@@ -39,6 +41,8 @@ extern int receData(unsigned char *buf, const int interval);
 extern void initLora();
 extern void showSensorOnboard();
 
+////////////////////////
 // blink LED for debug
 extern void blinkLed(int nCount, int msOn, int msOff, int idPin);
 extern void blinkSOS(int msDot);
+extern void printDebug(const char* format, ...);

@@ -41,6 +41,7 @@ typedef void (* CALLBACK_ReceData) (unsigned char *data, int szData);
 
 extern CALLBACK_ReceData g_cbReceData;
 extern CALLBACK_ReceData g_cbPacketReqData;
+extern CALLBACK_ReceData g_cbPacketNotifyMcsCommand;
 
 
 // config data for lora (30 bytes)

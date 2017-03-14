@@ -5,8 +5,11 @@
 #include "lora_util.h"
 #include "lora_packet.h"
 
+// callback ptr
 CALLBACK_ReceData g_cbReceData = NULL;
 CALLBACK_ReceData g_cbPacketReqData = NULL;
+CALLBACK_ReceData g_cbPacketNotifyMcsCommand = NULL;
+
 
 void prepareHeader(HeaderLink *pHead, char cDirection, int szPacket)
 {
@@ -77,18 +80,14 @@ void parsePacket(uint8_t *packet, int szPacket)
         
         pos = szHeader + 1;
         int cmdID = packet[pos] + (packet[pos + 1] << 8);
-        printf("payload cmdID = %d, receID = ", cmdID);
+        printDebug("payload cmdID = %d, receID = ", cmdID);
         printBinary(header.receiver_id, 8);
         if (0 == memcmp(g_dataLora.mac_addr, header.receiver_id, 8))
-        {
-        
-          
+        {                  
             switch (cmdID) {
             case CMD_REQ_DATA:
-                printf("REQ_DATA\n");
-                blinkSOS(100);
                 if (g_cbPacketReqData) {
-                    // 
+                    // payload for REQ_DATA
                     int pos = 14 + 1 + 2;
                     short *interval = (short*)(packet + pos);
                     pos += 2;
@@ -96,6 +95,15 @@ void parsePacket(uint8_t *packet, int szPacket)
                     pos++;
                     uint8_t *pData = packet + pos;
                     g_cbPacketReqData(pData, szData);
+                }
+                break;
+            case CMD_NOTIFY_MCS_COMMAND:
+                if (g_cbPacketNotifyMcsCommand) {
+                    int pos = 14 + 1 + 2;
+                    uint8_t szData = packet[pos];
+                    pos++;
+                    uint8_t *pData = packet + pos;
+                    g_cbPacketNotifyMcsCommand(pData, szData);
                 }
                 break;
             default:
