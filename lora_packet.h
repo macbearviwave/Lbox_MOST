@@ -1,6 +1,11 @@
-/* Main Program for Lbox001
-----  Test/Demo Code
-*/
+// MOSTLink LoRa module by GlobalSat
+//
+// MOSTLink protocol
+//
+
+#ifndef __lora_packet_h
+#define __lora_packet_h
+
 #include <stdio.h>
 #include <string.h>
 
@@ -57,3 +62,5 @@ typedef struct SHeaderLink {
 
 extern void sendPacketThingSpeak(const char *apiKey, float f0, float f1, float f2, float f3, float f4, float f5, float f6, float f7);
 extern void parsePacket(uint8_t *packet, int szPacket);
+
+#endif // __lora_packet_h

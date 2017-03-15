@@ -1,12 +1,17 @@
-/* Main Program for Lbox001
-----  Test/Demo Code
-*/
+// MOSTLink LoRa module by GlobalSat
+//
+// LBox Rx/Tx with LoRaWAN (GTIoT server)
+//
+
+#ifndef __lora_wan_h
+#define __lora_wan_h
+
+#include "lora_util.h"
 
 // LoRa WAN
 extern void initLoraWAN();
 
 extern bool isOK(const char *strResponse);
-
 
 extern void WANupdateFW();
 extern void WANsaveSetting();
@@ -70,7 +75,7 @@ extern int WANgetPLCheck();
 
 // Rx2_Freq_DR: frequency 000000001~999999999 in Hz, data-rate 0~15
 extern boolean WANsetRx2_Freq_DR(long freq, int dataRate);
-extern void WANgetRx2_Freq_DR(long &freq, int &dataRate);
+extern void WANgetRx2_Freq_DR(long *pFreq, int *pDataRate);
 
 // ClassMode: 0 - Class A, 2 - Class C
 extern boolean WANsetClassMode(int mode);
@@ -87,11 +92,11 @@ extern int WANgetRx1DrOffset();
 //      channel state: 0 - close, 1 - open
 //      band grouping: US 0, EU 0~3
 extern boolean WANsetTx_Channel(int channel, long freq, int dataRate, int channelOpen, int bandGroup);
-extern void WANgetTx_Channel(int channel, long &freq, int &dataRate, int &channelOpen, int &bandGroup);
+extern void WANgetTx_Channel(int channel, long *pFreq, int *pDataRate, int *pChannelOpen, int *pBandGroup);
 
 // Tx_Band[x]: band grouping: US 0, EU 0~3, dutyCycle 1~9999, ID-power 0~15
 extern boolean WANsetTx_Band(int bandGroup, int dutyCycle, int idPower);
-extern void WANgetTx_Band(int bandGroup, int &dutyCycle, int &idPower);
+extern void WANgetTx_Band(int bandGroup, int *pDutyCycle, int *pIdPower);
 
 // Uplink_Count
 extern int WANgetUplink_Count();
@@ -110,3 +115,5 @@ extern int WANgetPl_Max_Length(int dataRate);
 // Plre_Max_Length[x]: dataRate 0~15, payload length: 0~255
 extern boolean WANsetPlre_Max_Length(int dataRate, int lenPayload);
 extern int WANgetPlre_Max_Length(int dataRate);
+
+#endif // __lora_wan_h

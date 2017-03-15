@@ -1,6 +1,11 @@
-/* Main Program for Lbox001
-----  Test/Demo Code
-*/
+// MOSTLink LoRa module by GlobalSat
+//
+// LBox Rx/Tx with LoRa
+//
+
+#ifndef __lora_util_h
+#define __lora_util_h
+
 #include <stdio.h>
 #include <string.h>
 
@@ -57,3 +62,5 @@ extern void showSensorOnboard();
 extern void blinkLed(int nCount, int msOn, int msOff, int idPin);
 extern void blinkSOS(int msDot);
 extern void printDebug(const char* format, ...);
+
+#endif // __lora_util_h

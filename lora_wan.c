@@ -5,6 +5,7 @@
 #include "lora_wan.h"
 #include "lora_util.h"
 #include "lbox.h"
+#include "stdlib.h"
 
 #define MAX_SIZE_CMD     60
 #define MAX_SIZE_BUF     99
@@ -83,7 +84,7 @@ void WANrestore()
 boolean WANsetTx(int port, char *confirm, char *payload)
 {
     sprintf(_strBuf, "AAT2 Tx=%d,%s,%s", port, confirm, payload);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
@@ -93,11 +94,14 @@ boolean WANsetTx(int port, char *confirm, char *payload)
 boolean WANsetTestMode(int mode)
 {
     sprintf(_strBuf, "AAT1 TestMode=%d", mode);
-    command(_strBuf);
+    const char *strRet = command(_strBuf);
+    
+    return isOK(strRet);
 }
+
 int WANgetTestMode()
 {
-    char *strRet = command(F("AAT1 TestMode=?"));
+    const char *strRet = command("AAT1 TestMode=?");
     return atoi(strRet);
 }
 /////////////////////////////////////////
@@ -105,13 +109,13 @@ int WANgetTestMode()
 boolean WANsetDevAddr(const char *strAddr)
 {
     sprintf(_strBuf, "AAT2 DevAddr=%s", strAddr);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
 
     return isOK(strRet);
 }
 const char *WANgetDevAddr()
 {
-    return command(F("AAT2 DevAddr=?"));
+    return command("AAT2 DevAddr=?");
 }
 
 /////////////////////////////////////////
@@ -119,7 +123,7 @@ const char *WANgetDevAddr()
 boolean WANsetDevEui(const char *strEui)
 {
     sprintf(_strBuf, "AAT2 DevEui=%s", strEui);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
@@ -134,13 +138,13 @@ const char *WANgetDevEui()
 boolean WANsetAppEui(const char *strEui)
 {
     sprintf(_strBuf, "AAT2 AppEui=%s", strEui);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 const char *WANgetAppEui()
 {
-    return command(F("AAT2 AppEui=?"));
+    return command("AAT2 AppEui=?");
 }
 
 /////////////////////////////////////////
@@ -148,13 +152,13 @@ const char *WANgetAppEui()
 boolean WANsetNwkSKey(const char *strKey)
 {
     sprintf(_strBuf, "AAT2 NwkSKey=%s", strKey);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 const char *WANgetNwkSKey()
 {
-    return command(F("AAT2 NwkSKey=?"));
+    return command("AAT2 NwkSKey=?");
 }
 
 /////////////////////////////////////////
@@ -162,13 +166,13 @@ const char *WANgetNwkSKey()
 boolean WANsetAppSKey(const char *strKey)
 {
     sprintf(_strBuf, "AAT2 AppSKey=%s", strKey);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 const char *WANgetAppSKey()
 {
-    return command(F("AAT2 AppSKey=?"));
+    return command("AAT2 AppSKey=?");
 }
 
 /////////////////////////////////////////
@@ -176,13 +180,13 @@ const char *WANgetAppSKey()
 boolean WANsetAppKey(const char *strKey)
 {
     sprintf(_strBuf, "AAT2 AppKey=%s", strKey);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 const char *WANgetAppKey()
 {
-    return command(F("AAT2 AppKey=?"));
+    return command("AAT2 AppKey=?");
 }
 
 /////////////////////////////////////////
@@ -190,13 +194,13 @@ const char *WANgetAppKey()
 boolean WANsetADR(int state)
 {
     sprintf(_strBuf, "AAT2 ADR=%d", state);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetADR()
 {
-    char *strRet = command(F("AAT2 ADR=?"));
+    const char *strRet = command("AAT2 ADR=?");
     return atoi(strRet);
 }
 
@@ -205,13 +209,13 @@ int WANgetADR()
 boolean WANsetEVK_TxCycle(int interval)
 {
     sprintf(_strBuf, "AAT1 EVK_TxCycle=%d", interval);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetEVK_TxCycle()
 {
-    char *strRet = command(F("AAT1 EVK_TxCycle=?"));
+    const char *strRet = command("AAT1 EVK_TxCycle=?");
     return atoi(strRet);
 }
 
@@ -220,13 +224,13 @@ int WANgetEVK_TxCycle()
 boolean WANsetJoinMode(int mode)
 {
     sprintf(_strBuf, "AAT2 JoinMode=%d", mode);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetJoinMode()
 {
-    char *strRet = command(F("AAT2 JoinMode=?"));
+    const char *strRet = command("AAT2 JoinMode=?");
     return atoi(strRet);
 }
 
@@ -235,13 +239,13 @@ int WANgetJoinMode()
 boolean WANsetreTx(int retry)
 {
     sprintf(_strBuf, "AAT2 reTx=%d", retry);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetreTx()
 {
-    char *strRet = command(F("AAT2 reTx=?"));
+    const char *strRet = command("AAT2 reTx=?");
     return atoi(strRet);
 }
 
@@ -250,13 +254,13 @@ int WANgetreTx()
 boolean WANsetRxDelay1(long delayMicroSec)
 {
     sprintf(_strBuf, "AAT2 RxDelay1=%ld", delayMicroSec);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 long WANgetRxDelay1()
 {
-    char *strRet = command(F("AAT2 RxDelay1=?"));
+    const char *strRet = command("AAT2 RxDelay1=?");
     return atol(strRet);
 }
 
@@ -265,13 +269,13 @@ long WANgetRxDelay1()
 boolean WANsetDutyCycle(int state)
 {
     sprintf(_strBuf, "AAT2 DutyCycle=%d", state);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetDutyCycle()
 {
-    char *strRet = command(F("AAT2 DutyCycle=?"));
+    const char *strRet = command("AAT2 DutyCycle=?");
     return atoi(strRet);
 }
 
@@ -280,13 +284,13 @@ int WANgetDutyCycle()
 boolean WANsetPLCheck(int state)
 {
     sprintf(_strBuf, "AAT2 PLCheck=%d", state);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetPLCheck()
 {
-    char *strRet = command(F("AAT2 PLCheck=?"));
+    const char *strRet = command("AAT2 PLCheck=?");
     return atoi(strRet);
 }
 
@@ -295,24 +299,24 @@ int WANgetPLCheck()
 boolean WANsetRx2_Freq_DR(long freq, int dataRate)
 {
     sprintf(_strBuf, "AAT2 Rx2_Freq_DR=%ld,%d", freq, dataRate);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
-void WANgetRx2_Freq_DR(long &freq, int &dataRate)
+void WANgetRx2_Freq_DR(long *pFreq, int *pDataRate)
 {
-    char *strRet = command(F("AAT2 Rx2_Freq_DR=?"));
+    const char *strRet = command("AAT2 Rx2_Freq_DR=?");
     char *token;
     token = strstr(strRet, "Freq.");
     if (token != NULL) {
-        freq = atol(token + 5);
+        *pFreq = atol(token + 5);
     }
     token = strstr(strRet, "DR");
     if (token != NULL) {
-        dataRate = atoi(token + 2);
+        *pDataRate = atoi(token + 2);
     }
 #ifdef USE_DEBUG_OUTPUT
-    printDebug("%dHz, dataRate:%d\n", freq, dataRate);
+    printDebug("%dHz, dataRate:%d\n", *pFreq, *pDataRate);
 #endif // USE_DEBUG_OUTPUT
 }
 
@@ -321,13 +325,13 @@ void WANgetRx2_Freq_DR(long &freq, int &dataRate)
 boolean WANsetClassMode(int mode)
 {
     sprintf(_strBuf, "AAT2 ClassMode=%d", mode);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetClassMode()
 {
-    char *strRet = command(F("AAT2 ClassMode=?"));
+    const char *strRet = command("AAT2 ClassMode=?");
     return atoi(strRet);
 }
 
@@ -336,13 +340,13 @@ int WANgetClassMode()
 boolean WANsetRx1DrOffset(int offset)
 {
     sprintf(_strBuf, "AAT2 Rx1DrOffset=%d", offset);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
 int WANgetRx1DrOffset()
 {
-    char *strRet = command(F("AAT2 Rx1DrOffset=?"));
+    const char *strRet = command("AAT2 Rx1DrOffset=?");
     return atoi(strRet);
 }
 
@@ -356,33 +360,33 @@ int WANgetRx1DrOffset()
 boolean WANsetTx_Channel(int channel, long freq, int dataRate, int channelOpen, int bandGroup)
 {
     sprintf(_strBuf, "AAT2 Tx_Channel=%d,%ld,%d,%d,%d", channel, freq, dataRate, channelOpen, bandGroup);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
-void WANgetTx_Channel(int channel, long &freq, int &dataRate, int &channelOpen, int &bandGroup)
+void WANgetTx_Channel(int channel, long *pFreq, int *pDataRate, int *pChannelOpen, int *pBandGroup)
 {
     sprintf(_strBuf, "AAT2 Tx_Channel%d=?", channel);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     char *token;
     token = strstr(strRet, "Freq.");
     if (token != NULL) {
-        freq = atol(token + 5);
+        *pFreq = atol(token + 5);
     }
     token = strstr(strRet, "DrRange.");
     if (token != NULL) {
-        dataRate = atoi(token + 8);
+        *pDataRate = atoi(token + 8);
     }
     token = strstr(strRet, "Status");
     if (token != NULL) {
-        channelOpen = atoi(token + 6);
+        *pChannelOpen = atoi(token + 6);
     }
     token = strstr(strRet, "Band");
     if (token != NULL) {
-        bandGroup = atoi(token + 4);
+        *pBandGroup = atoi(token + 4);
     }
 #ifdef USE_DEBUG_OUTPUT
-    printDebug("Ch_%d, Freq:%dHz, dataRate:%d, status:%d, band:%d\n", channel, freq, dataRate, channelOpen, bandGroup);
+    printDebug("Ch_%d, Freq:%dHz, dataRate:%d, status:%d, band:%d\n", channel, *pFreq, *pDataRate, *pChannelOpen, *pBandGroup);
 #endif // USE_DEBUG_OUTPUT
 }
 
@@ -391,11 +395,11 @@ void WANgetTx_Channel(int channel, long &freq, int &dataRate, int &channelOpen, 
 boolean WANsetTx_Band(int bandGroup, int dutyCycle, int idPower)
 {
     sprintf(_strBuf, "AAT2 Tx_Band=%d,%d,%d", bandGroup, dutyCycle, idPower);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
-void WANgetTx_Band(int bandGroup, int &dutyCycle, int &idPower)
+void WANgetTx_Band(int bandGroup, int *pDutyCycle, int *pIdPower)
 {
     if (bandGroup >= 0) {
         sprintf(_strBuf, "AAT2 Tx_Band%d=?", bandGroup);
@@ -403,19 +407,18 @@ void WANgetTx_Band(int bandGroup, int &dutyCycle, int &idPower)
     else {
         strcpy(_strBuf, "AAT2 Tx_Band=?");
     }
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     char *token;
     token = strstr(strRet, "DutyCycle.");
     if (token != NULL) {
-        dutyCycle = atoi(token + 10);
+        *pDutyCycle = atoi(token + 10);
     }
     token = strstr(strRet, "TxPower.");
     if (token != NULL) {
-        idPower = atoi(token + 8);
+        *pIdPower = atoi(token + 8);
     }
 #ifdef USE_DEBUG_OUTPUT
-    printDebug("band:%d, dutyCycle:%d, TxPower ID:%d\n", bandGroup, dutyCycle, idPower);
-    , channelOpen, bandGroup);
+    printDebug("band:%d, dutyCycle:%d, TxPower ID:%d\n", bandGroup, *pDutyCycle, *pIdPower);
 
 #endif // USE_DEBUG_OUTPUT
 }
@@ -424,7 +427,7 @@ void WANgetTx_Band(int bandGroup, int &dutyCycle, int &idPower)
 // Uplink_Count
 int WANgetUplink_Count()
 {
-    char *strRet = command(F("AAT2 Uplink_Count=?"));
+    const char *strRet = command("AAT2 Uplink_Count=?");
     return atoi(strRet);
 }
 
@@ -432,7 +435,7 @@ int WANgetUplink_Count()
 // Downlink_Count
 int WANgetDownlink_Count()
 {
-    char *strRet = command(F("AAT2 Downlink_Count=?"));
+    const char *strRet = command("AAT2 Downlink_Count=?");
     return atoi(strRet);
 }
 
@@ -441,7 +444,7 @@ int WANgetDownlink_Count()
 boolean WANsetTx_Power(int idPower, int dbmPower)
 {
     sprintf(_strBuf, "AAT2 Tx_Power=%d,%d", idPower, dbmPower);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
@@ -454,8 +457,8 @@ int WANgetTx_Power(int idPower)
         strcpy(_strBuf, "AAT2 Tx_Power=?");
     }
     
-    char *strRet = command(_strBuf);
-    char *token = strstr(strRet, ", ");
+    const char *strRet = command(_strBuf);
+    const char *token = strstr(strRet, ", ");
     int nRet = 0;
     if (token != NULL) {
         nRet = atoi(token + 2);
@@ -468,7 +471,7 @@ int WANgetTx_Power(int idPower)
 boolean WANsetPl_Max_Length(int dataRate, int lenPayload)
 {
     sprintf(_strBuf, "AAT2 Pl_Max_Length=%d,%d", dataRate, lenPayload);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
@@ -481,8 +484,8 @@ int WANgetPl_Max_Length(int dataRate)
         strcpy(_strBuf, "AAT2 Pl_Max_Length=?");
     }
     
-    char *strRet = command(_strBuf);
-    char *token = strstr(strRet, "MaxLength.");
+    const char *strRet = command(_strBuf);
+    const char *token = strstr(strRet, "MaxLength.");
     int nRet = 0;
     if (token != NULL) {
         nRet = atoi(token + 10);
@@ -495,7 +498,7 @@ int WANgetPl_Max_Length(int dataRate)
 boolean WANsetPlre_Max_Length(int dataRate, int lenPayload)
 {
     sprintf(_strBuf, "AAT2 Plre_Max_Length=%d,%d", dataRate, lenPayload);
-    char *strRet = command(_strBuf);
+    const char *strRet = command(_strBuf);
     
     return isOK(strRet);
 }
@@ -508,8 +511,8 @@ int WANgetPlre_Max_Length(int dataRate)
         strcpy(_strBuf, "AAT2 Plre_Max_Length=?");
     }
     
-    char *strRet = command(_strBuf);
-    char *token = strstr(strRet, "MaxLength.");
+    const char *strRet = command(_strBuf);
+    const char *token = strstr(strRet, "MaxLength.");
     int nRet = 0;
     if (token != NULL) {
         nRet = atoi(token + 10);
