@@ -4,8 +4,16 @@
 #include <stdio.h>
 #include <string.h>
 
-#define uint8_t unsigned char
-#define USE_DEBUG_OUTPUT    1       // output Terminal I/O
+#define uint8_t     unsigned char
+#define bool        int
+#define boolean     bool
+#define true 1
+#define false 0
+
+#ifdef NDEBUG       // release
+#else               // debug
+#define USE_DEBUG_OUTPUT        // output Terminal I/O
+#endif 
 
 extern void printBinary(const unsigned char *data, const int szData);
 extern uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length);
@@ -36,9 +44,12 @@ extern int readConfig(DataLora *data);
 extern int writeConfig(long freq, unsigned char group_id, char data_rate, char power, char wakeup_time);
 
 // send/rece
+extern int sendData(uint8_t *data, int szData);
 extern int receData(unsigned char *buf, const int interval);
 
+// LoRa LAN (MOSTLink)
 extern void initLora();
+
 extern void showSensorOnboard();
 
 ////////////////////////

@@ -23,7 +23,7 @@ void printBinary(const unsigned char *data, const int szData)
         sprintf(strHex, "%02X", data[i]);
         strcat(strOut, strHex);
     }
-#if USE_DEBUG_OUTPUT
+#ifdef USE_DEBUG_OUTPUT
     printf("%s (%d)\n", strOut, szData);
 #endif // USE_DEBUG_OUTPUT
 }
@@ -39,6 +39,17 @@ uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length) {
     return crc;
 }
 
+/////////////////////////////////////////
+// send data via LoRa
+int sendData(uint8_t *data, int szData)
+{
+    LoRa_Tx(data, szData);
+    Delay_Tick(100);
+
+    printDebug("Send > ");
+    printBinary(data, szData);
+    return szData;
+}
 ///////////////////////////////////////////
 
 int receData(unsigned char *buf, const int interval)
@@ -50,8 +61,12 @@ int receData(unsigned char *buf, const int interval)
 	while (duration < interval)	// try 3 sec
 	{
 		nRet = LoRa_Rx(buf);
-		if (nRet != 0)
-          break;
+		if (nRet != 0) {
+            buf[nRet] = 0;
+            printDebug("Rece < ");
+            printBinary(buf, nRet);          
+            break;
+        }
 		cnt++;
         duration += deltaTick;
 		Delay_Tick(deltaTick);
@@ -79,7 +94,7 @@ void printConfig(DataLora *data)
     
     long nFrequency;
     nFrequency = ((long)data->freq[0] << 16) + ((long)data->freq[1] << 8) + data->freq[2];
-    printDebug("Config freq(%d), g_id(%d), datarate(%d), power(%d), wakeup(%d)\n", nFrequency, data->group_id, data->data_rate, data->power, data->wakeup_time);
+    printDebug("Config freq(%d), g_id(%d) \ndatarate(%d), power(%d), wakeup(%d)\n", nFrequency, data->group_id, data->data_rate, data->power, data->wakeup_time);
     printDebug("------\n");
 }
 
@@ -92,13 +107,13 @@ int receConfig(DataLora *data)
     if (szBuf >= szConfig) {
         memcpy(data, buf, szConfig);
     
-//        printBinary(buf, szBuf);
         // config result
         printConfig(data);
     }
     else {
         printDebug("config n/a (%d/%d)!\n", szBuf, szConfig);
     }
+    Delay_Tick(2000);
     return szBuf;
 }
 
@@ -139,8 +154,8 @@ int writeConfig(long freq, unsigned char group_id, char data_rate, char power, c
 void initLora()
 {
  	ConfigLoRa(9600);
- 
 	LM130_Start();
+ 
 	while (ReadBusy()==0)
 	{
 		Delay_Tick(100);
@@ -148,7 +163,7 @@ void initLora()
     readConfig(&g_dataLora);
 }
 
-
+///////////////////////////////////////////
 void showSensorOnboard()
 {
     int temp = THS_Read_Value(0);
@@ -183,6 +198,7 @@ void blinkSOS(int msDot)
 
 void printDebug(const char* format, ...)
 {
+#ifdef USE_DEBUG_OUTPUT
     char buffer[256];
 
     va_list argptr;
@@ -190,7 +206,6 @@ void printDebug(const char* format, ...)
     vsnprintf(buffer, 255, format, argptr);
     va_end(argptr);
     
-#if USE_DEBUG_OUTPUT
     printf("%s", buffer);
 #endif // USE_DEBUG_OUTPUT
 }
