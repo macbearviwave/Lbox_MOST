@@ -12,12 +12,16 @@
 		80CE5C1A1E76712500097F65 /* lora_packet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lora_packet.h; path = ../lora_packet.h; sourceTree = "<group>"; };
 		80CE5C1B1E76712500097F65 /* lora_util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = lora_util.c; path = ../lora_util.c; sourceTree = "<group>"; };
 		80CE5C1C1E76712500097F65 /* lora_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lora_util.h; path = ../lora_util.h; sourceTree = "<group>"; };
+		80CE5C1D1E7933E000097F65 /* lora_wan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = lora_wan.c; path = ../lora_wan.c; sourceTree = "<group>"; };
+		80CE5C1E1E7933E000097F65 /* lora_wan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lora_wan.h; path = ../lora_wan.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		80CE5C111E7670FD00097F65 = {
 			isa = PBXGroup;
 			children = (
+				80CE5C1D1E7933E000097F65 /* lora_wan.c */,
+				80CE5C1E1E7933E000097F65 /* lora_wan.h */,
 				80CE5C181E76712500097F65 /* lbox.h */,
 				80CE5C191E76712500097F65 /* lora_packet.c */,
 				80CE5C1A1E76712500097F65 /* lora_packet.h */,
