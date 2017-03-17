@@ -1,6 +1,7 @@
-/* Main Program for Lbox001
-----  Test/Demo Code
-*/
+// Lbox LoRaLAN by MOSTLink protocol
+//
+// 2017 viWave, All rights reserved
+///////////////////////////////////////////
 
 #include "lora_util.h"
 #include "lbox.h"
@@ -16,14 +17,14 @@ DataLora g_dataLora;
 
 void printBinary(const unsigned char *data, const int szData)
 {
-    char strOut[99] = {0};
-    char strHex[4];
+#ifdef USE_DEBUG_OUTPUT
+    char strOut[256] = {0};
+    char strHex[8] = {0};
     int i;
     for (i = 0; i < szData; i++) {
         sprintf(strHex, "%02X", data[i]);
         strcat(strOut, strHex);
     }
-#ifdef USE_DEBUG_OUTPUT
     printf("%s (%d)\n", strOut, szData);
 #endif // USE_DEBUG_OUTPUT
 }
@@ -43,6 +44,10 @@ uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length) {
 // send data via LoRa
 int sendData(uint8_t *data, int szData)
 {
+    if (szData > 99) {
+        printDebug("Error: Send too many chars(%d)", szData);
+        return -1;
+    }
     LoRa_Tx(data, szData);
     Delay_Tick(100);
 
@@ -94,8 +99,8 @@ void printConfig(DataLora *data)
     
     long nFrequency;
     nFrequency = ((long)data->freq[0] << 16) + ((long)data->freq[1] << 8) + data->freq[2];
-    printDebug("Config freq(%d), g_id(%d) \ndatarate(%d), power(%d), wakeup(%d)\n", nFrequency, data->group_id, data->data_rate, data->power, data->wakeup_time);
-    printDebug("------\n");
+    printDebug("    Config freq(%d), g_id(%d)\n", nFrequency, data->group_id);
+    printDebug("    datarate(%d), power(%d), wakeup(%d)\n------\n", data->data_rate, data->power, data->wakeup_time);
 }
 
 int receConfig(DataLora *data)
@@ -206,6 +211,6 @@ void printDebug(const char* format, ...)
     vsnprintf(buffer, 255, format, argptr);
     va_end(argptr);
     
-    printf("%s", buffer);
+    printf(buffer);
 #endif // USE_DEBUG_OUTPUT
 }

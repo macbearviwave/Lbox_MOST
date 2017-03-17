@@ -18,7 +18,7 @@
 #ifdef NDEBUG       // release
 #else               // debug
 #define USE_DEBUG_OUTPUT        // output Terminal I/O
-#endif 
+#endif // NDEBUG
 
 extern void printBinary(const unsigned char *data, const int szData);
 extern uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length);

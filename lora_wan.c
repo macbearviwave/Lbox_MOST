@@ -1,6 +1,8 @@
-/* Main Program for Lbox001
-----  Test/Demo Code
-*/
+// Lbox LoRaWAN
+// AT command
+//
+// 2017 viWave, All rights reserved
+///////////////////////////////////////////
 
 #include "lora_wan.h"
 #include "lora_util.h"
