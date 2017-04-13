@@ -66,5 +66,6 @@ extern void sendPacketThingSpeak(const char *apiKey, float f0, float f1, float f
 // MCS related:
 extern void sendPacketReqLoginMCS(uint8_t *data, int szData);
 extern void sendPacketSendMCSCommand(uint8_t *data, int szData);
+extern boolean MCSparseDownlink(const char *strBuf, const char *strToken, int *pVal);
 
 #endif // __lora_packet_h

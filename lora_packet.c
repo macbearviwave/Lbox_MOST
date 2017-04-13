@@ -47,7 +47,9 @@ void parsePacket(uint8_t *packet, int szPacket)
         printDebug("payload cmdID = %d, receID = ", cmdID);
         printBinary(header.receiver_id, 8);
         if (0 == memcmp(g_dataLora.mac_addr, header.receiver_id, 8))
-        {                  
+        {
+            Delay_Tick(100);
+
             switch (cmdID) {
             case CMD_REQ_DATA:
                 if (g_cbPacketReqData) {
@@ -167,9 +169,23 @@ void sendPacketSendMCSCommand(uint8_t *data, int szData)
     sendPacketData(data, szData, CMD_SEND_MCS_COMMAND);
 }
 
-void generateMcsChannelData(char *strDst, const char *strID, const char *strValue)
+void MCSgenerateChannelData(char *strDst, const char *strID, const char *strValue)
 {
     sprintf(strDst, "%s,,%s", strID, strValue);
+}
+
+// parse downlink command from MCS
+boolean MCSparseDownlink(const char *strBuf, const char *strToken, int *pVal) {
+    boolean bRet = false;
+    if (strstr(strBuf, strToken) == strBuf) {
+        const int szToken = strlen(strToken);
+        if (',' == strBuf[szToken]) {
+            const char *strVal = strBuf + szToken + 1;
+            *pVal = atoi(strVal);
+            bRet = true;
+        }
+    }
+    return bRet;
 }
 
 ///////////////////////////////////////////

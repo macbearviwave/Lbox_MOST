@@ -25,6 +25,7 @@ void printBinary(const unsigned char *data, const int szData)
         sprintf(strHex, "%02X", data[i]);
         strcat(strOut, strHex);
     }
+//    printf("%s", strHex);
     printf("%s (%d)\n", strOut, szData);
 #endif // USE_DEBUG_OUTPUT
 }
@@ -48,10 +49,11 @@ int sendData(uint8_t *data, int szData)
         printDebug("Error: Send too many chars(%d)", szData);
         return -1;
     }
+   
     LoRa_Tx(data, szData);
     Delay_Tick(100);
-
-    printDebug("Send > ");
+    
+    printDebug("(S) ");
     printBinary(data, szData);
     return szData;
 }
@@ -68,7 +70,7 @@ int receData(unsigned char *buf, const int interval)
 		nRet = LoRa_Rx(buf);
 		if (nRet != 0) {
             buf[nRet] = 0;
-            printDebug("Rece < ");
+            printDebug("(R) ");
             printBinary(buf, nRet);          
             break;
         }
