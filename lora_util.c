@@ -55,6 +55,8 @@ int sendData(uint8_t *data, int szData)
     
     printDebug("(S) ");
     printBinary(data, szData);
+    printDebug("\n>>> %s ", data);
+
     return szData;
 }
 ///////////////////////////////////////////
@@ -72,6 +74,7 @@ int receData(unsigned char *buf, const int interval)
             buf[nRet] = 0;
             printDebug("(R) ");
             printBinary(buf, nRet);          
+            printDebug("\n<<< %s ", buf);
             break;
         }
 		cnt++;

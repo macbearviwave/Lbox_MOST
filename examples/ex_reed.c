@@ -154,7 +154,7 @@ void LoRaWAN_Reed()
 
     bool bReedChange = false;
     int nCountChange = 0;
-    const unsigned long periodTx = 60000;
+    const unsigned long periodTx = 6000;
     unsigned long tickTx = 0;
     while (1) {
         szBuf = receData(buf, 10);
@@ -169,8 +169,8 @@ void LoRaWAN_Reed()
         }
         // reed changed, TX to GtIot by LoRaWAN
         if (nCountChange > 0) {
-            const int elpaseTx = tickNow - tickTx;
             tickNow = Get_Time_Tick();
+            const int elpaseTx = tickNow - tickTx;
             if (0 == tickTx || (elpaseTx >= periodTx)) {
                 char strTx[20];
                 sprintf(strTx, "%02X%02X%08X", reedCurr, nCountChange, tickNow);
@@ -179,15 +179,15 @@ void LoRaWAN_Reed()
                 bool bResultTx = WANsetTx(3, "cnf", strTx);
                 printDebug("result: TX %s\n", bResultTx ? "ok" : "fail");
                 
-                if (bResultTx)
-                    blinkLed(3, 50, 10, 1);   // debug by blinkLed
-                else
-                    blinkLed(3, 10, 50, 1);   // debug by blinkLed
-
+                tickTx = Get_Time_Tick();
                 if (bResultTx) {
-                    tickTx = tickNow;
                     nCountChange = 0;
+                    blinkLed(3, 100, 100, 1);   // debug by blinkLed
                 }
+                else
+                    blinkLed(1, 100, 100, 1);   // debug by blinkLed
+                // restore debug LED
+                WriteGPO(1, reedCurr);      // GPO#1 LED on when reed opened
             }
         }  
         
