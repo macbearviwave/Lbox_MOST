@@ -62,10 +62,15 @@ typedef struct SHeaderLink {
 
 extern void parsePacket(uint8_t *packet, int szPacket);
 
+// Thingspeak related:
 extern void sendPacketThingSpeak(const char *apiKey, float f0, float f1, float f2, float f3, float f4, float f5, float f6, float f7);
 // MCS related:
 extern void sendPacketReqLoginMCS(uint8_t *data, int szData);
 extern void sendPacketSendMCSCommand(uint8_t *data, int szData);
 extern boolean MCSparseDownlink(const char *strBuf, const char *strToken, int *pVal);
+// myDevices (Cayenne)
+extern void sendPacketReqLoginMydevices(const char *username, const char *pwd, const char *clientID);
+extern void sendPacketSendMydevicesCommand(uint8_t *data, int szData);
+
 
 #endif // __lora_packet_h

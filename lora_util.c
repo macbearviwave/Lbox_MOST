@@ -30,6 +30,44 @@ void printBinary(const unsigned char *data, const int szData)
 #endif // USE_DEBUG_OUTPUT
 }
 
+void stringHexToBytes(uint8_t *dst, const char *strSrc, const int szSrc)
+{
+    int i;
+    char strTmp[3] = {0};
+    for (i = 0; i < szSrc / 2; i++) {
+        strTmp[0] = strSrc[i * 2];
+        strTmp[1] = strSrc[i * 2 + 1];
+        dst[i] = strtoul(strTmp, NULL, 16);
+    }
+}
+
+// myDevices Cayenne: username, password, clientID
+int convertMQTTtoHex(uint8_t *dst, const char *username, const char *password, const char *clientID)
+{
+    // username
+    stringHexToBytes(dst, username, 8);
+    stringHexToBytes(dst + 4, username + 9, 4);
+    stringHexToBytes(dst + 6, username + 14, 4);
+    stringHexToBytes(dst + 8, username + 19, 4);
+    stringHexToBytes(dst + 10, username + 24, 12);
+    
+    stringHexToBytes(dst + 16, password, 40);
+    
+    uint8_t *pID = dst + 36;
+    stringHexToBytes(pID, clientID, 8);
+    stringHexToBytes(pID + 4, clientID + 9, 4);
+    stringHexToBytes(pID + 6, clientID + 14, 4);
+    stringHexToBytes(pID + 8, clientID + 19, 4);
+    stringHexToBytes(pID + 10, clientID + 24, 12);
+    
+    printBinary(dst, 16);
+    printBinary(dst + 16, 20);
+    printBinary(dst + 36, 16);
+    
+    return (16 + 20 + 16);
+}
+
+        
 ///////////////////////////////////////////
 
 uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length) {

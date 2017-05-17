@@ -1,6 +1,7 @@
 // Lbox LoRaLAN by MOSTLink protocol
 // Command ID:
 //      CMD_REQ_DATA
+//      CMD_REQ_LOGIN_MCS
 //      CMD_NOTIFY_MCS_COMMAND
 //
 // 2017 viWave, All rights reserved
@@ -159,6 +160,9 @@ void sendPacketData(uint8_t *data, int szData, unsigned short cmdID)
     // send data by LoRa
     sendData(packet, szPacket);  
 }
+
+///////////////////////////////////////////
+// MCS related: Mediatek Cloud Sandbox
 void sendPacketReqLoginMCS(uint8_t *data, int szData)
 {
     sendPacketData(data, szData, CMD_REQ_LOGIN_MCS);
@@ -189,4 +193,17 @@ boolean MCSparseDownlink(const char *strBuf, const char *strToken, int *pVal) {
 }
 
 ///////////////////////////////////////////
-
+// myDevices(Cayenne)
+void sendPacketReqLoginMydevices(const char *username, const char *pwd, const char *clientID)
+{
+    uint8_t data[200];
+    int szData;
+    szData = convertMQTTtoHex(data, username, pwd, clientID);
+ 
+    sendPacketData(data, szData, CMD_REQ_LOGIN_MYDEVICES);
+}
+    
+void sendPacketSendMydevicesCommand(uint8_t *data, int szData)
+{
+    sendPacketData(data, szData, CMD_SEND_MYDEVICES_COMMAND);
+}

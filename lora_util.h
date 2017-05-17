@@ -21,6 +21,9 @@
 #endif // NDEBUG
 
 extern void printBinary(const unsigned char *data, const int szData);
+extern void stringHexToBytes(uint8_t *dst, const char *strSrc, const int szSrc);
+extern int convertMQTTtoHex(uint8_t *dst, const char *username, const char *password, const char *clientID);
+
 extern uint8_t getCrc(const uint8_t *dataBuffer, const uint8_t length);
 
 // config data for lora (30 bytes)
